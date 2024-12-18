@@ -4,7 +4,7 @@ data "aws_route53_zone" "zone" {
 }
 
 locals {
-  domain_name = "${var.name}.${var.zone_name}"
+  domain_name = var.zone_name
 }
 
 module "acm" {

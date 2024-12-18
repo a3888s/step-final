@@ -1,17 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "danit-devops-tf-state"
-    # Example
-    #key            = "eks/terraform.tfstate"
-    key            = 
-    encrypt        = true
-    # Example
-    #dynamodb_table = "lock-tf-eks"
-    dynamodb_table = 
-    # dynamo key LockID
-    # Params tekan from -backend-config when terraform init
-    #region = 
-    #profile = 
+    bucket         = "step-final-bucket"        # Назва S3 бакета для зберігання стану
+    key            = "dev/terraform.tfstate" # Шлях до файлу стану для середовища "dev"
+    region         = "eu-central-1"          # Регіон, де розміщено S3 бакет
+    dynamodb_table = "step-final-locks"         # DynamoDB таблиця для блокування стану
+    encrypt        = true                 # Шифрування стану для підвищення безпеки
   }
 }
-

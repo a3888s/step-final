@@ -11,5 +11,5 @@ class SimpleHandler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     server = HTTPServer(("0.0.0.0", 8080), SimpleHandler)
-    print("StepFinalProject v 1.0.0")
+    print("StepFinalProject v 2.0.0")
     server.serve_forever()

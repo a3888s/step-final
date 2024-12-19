@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - host: "app-stage.a3888s.test-danit.com"
+    - host: "stage.a3888s.test-danit.com"
       http:
         paths:
           - path: /

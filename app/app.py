@@ -26,7 +26,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     </style>
                 </head>
                 <body>
-                    <h1>StepFinalProject v 3.0.1</h1>
+                    <h1>StepFinalProject v 4.0.1</h1>
                 </body>
                 </html>
             """
@@ -36,5 +36,5 @@ class SimpleHandler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     server = HTTPServer(("0.0.0.0", 8080), SimpleHandler)
-    print("StepFinalProject v 2.0.0")
+    print("StepFinalProject v 4.0.1")
     server.serve_forever()

@@ -20,8 +20,8 @@ jobs:
 
       - name: Build Docker Image    # Побудова Docker-образу
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project:v4.0.1 -f app/Dockerfile app/
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project:v4.0.2 -f app/Dockerfile app/
 
       - name: Push Docker Image     # Завантаження Docker-образу в Docker Hub
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project:v4.0.1
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project:v4.0.2

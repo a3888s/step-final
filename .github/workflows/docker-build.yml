@@ -38,5 +38,5 @@ jobs:
 
       - name: Lint Kubernetes YAML
         run: |
-          yamllint app/k8s/dev/deployment.yaml
-          yamllint app/k8s/prod/deployment.yaml
+          yamllint -c .yamllint app/k8s/dev/deployment.yaml
+          yamllint -c .yamllint app/k8s/prod/deployment.yaml

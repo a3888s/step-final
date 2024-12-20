@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: python-backend        # Назва контейнера
-          image: a3888s/step-final-project:v4.0.1  # Docker-образ контейнера з тегом версії
+          image: a3888s/step-final-project:${DOCKER_TAG}  # Docker-образ контейнера з тегом версії
           ports:
             - containerPort: 8080     # Відкритий порт усередині контейнера

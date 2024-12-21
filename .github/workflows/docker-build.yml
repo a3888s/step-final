@@ -16,7 +16,9 @@ jobs:
       # Завантаження .env
       - name: Load .env file
         run: |
-          export $(grep -v '^#' .env | xargs)
+          set -a
+          source .env
+          set +a
 
       # Логін у Docker Hub
       - name: Login to Docker Hub

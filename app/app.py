@@ -39,6 +39,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
             self.wfile.write(html_content.encode("utf-8"))  # Відправка HTML-контенту
         else:
             self.send_response(404)  # Відправка відповіді зі статусом 404 (Not Found)
+            self.end_headers()
 
 # Основна частина програми
 if __name__ == "__main__":

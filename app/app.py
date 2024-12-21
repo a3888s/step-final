@@ -28,7 +28,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     </style>
                 </head>
                 <body>
-                    <h1>StepFinalProject v 0.0.1</h1>
+                    <h1>StepFinalProject v 0.0.2</h1>
                 </body>
                 </html>
             """

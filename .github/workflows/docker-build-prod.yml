@@ -1,0 +1,48 @@
+name: Release and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_TAG: v0.0.1  # Задаємо тег вручну або через CI/CD
+
+    steps:
+      # Крок 1: Клонування репозиторію
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Крок 2: Логін у Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Крок 3: Побудова Docker-образу
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project-prod:${{ env.DOCKER_TAG }} -f app/Dockerfile app/
+
+      # Крок 4: Завантаження Docker-образу
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project-prod:${{ env.DOCKER_TAG }}
+
+      # Крок 5: Створення GitHub-релізу
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ env.DOCKER_TAG }}
+          release_name: Release ${{ env.DOCKER_TAG }}
+          body: |
+            This release includes Docker image:
+            `docker pull ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project-prod:${{ env.DOCKER_TAG }}`
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

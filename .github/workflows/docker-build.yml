@@ -13,15 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Debug .env file
-        run: cat .env
-
       # Завантаження .env
       - name: Load .env file
         run: |
           set -a
           source .env
-          set +a
+          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
 
       - name: Verify DOCKER_TAG
         run: |

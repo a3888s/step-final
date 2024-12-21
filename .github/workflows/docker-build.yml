@@ -18,7 +18,7 @@ jobs:
         run: |
           set -a
           source .env
-          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV  
+          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
           
       - name: Verify DOCKER_TAG
         run: |

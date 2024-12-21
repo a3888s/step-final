@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DOCKER_TAG: v0.0.1  # Тег образу
     steps:
       # Клонування репозиторію
       - name: Checkout code

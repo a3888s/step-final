@@ -1,27 +1,43 @@
-name: Build and Push Docker Image  # Назва GitHub Workflow
+name: Build and Push Docker Image
 
 on:
-  push:                             # Виконувати Workflow при пушах
+  push:
     branches:
-      - dev                         # Тільки для гілки "dev"
+      - dev
 
 jobs:
   build:
-    runs-on: ubuntu-latest          # Виконувати на останній версії Ubuntu
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code         # Крок для завантаження коду репозиторію
-        uses: actions/checkout@v3   # Офіційний GitHub Action для checkout
+      # Клонування репозиторію
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Login to Docker Hub   # Логін у Docker Hub
+      # Завантаження .env
+      - name: Load .env file
+        run: |
+          set -a
+          source .env
+          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
+
+      # Логін у Docker Hub
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}  # Ім'я користувача з GitHub Secrets
-          password: ${{ secrets.DOCKERHUB_TOKEN }}     # Токен з GitHub Secrets
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Docker Image    # Побудова Docker-образу
+      - name: Build Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project:v4.0.1 -f app/Dockerfile app/
+          docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/step-final-project:${DOCKER_TAG}" -f app/Dockerfile app/
 
-      - name: Push Docker Image     # Завантаження Docker-образу в Docker Hub
+      # Завантаження Docker-образу
+      - name: Push Docker Image
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project:v4.0.1
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project:${DOCKER_TAG}
+
+      # Лінтинг DEV та PROD YAML
+      - name: Lint Kubernetes YAML
+        run: |
+          yamllint -c .yamllint app/k8s/dev/deployment.yaml
+          yamllint -c .yamllint app/k8s/prod/deployment.yaml

@@ -10,19 +10,21 @@ jobs:
   release:
     if: github.event.pull_request.merged == true  # Виконується тільки якщо PR був merged
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Дозволяє створювати релізи
 
 
     steps:
       # Крок 1: Клонування репозиторію
       - name: Checkout code
         uses: actions/checkout@v3
-
+        
       # Крок 2: Завантаження .env
       - name: Load .env file
         run: |
           set -a
           source .env
-          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV
+          echo "DOCKER_TAG=${DOCKER_TAG}" >> $GITHUB_ENV  
 
       # Крок 3: Логін у Docker Hub
       - name: Login to Docker Hub
@@ -31,15 +33,20 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Крок 4: Побудова Docker-образу
       - name: Build Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project-prod:${{ env.DOCKER_TAG }} -f app/Dockerfile app/
+          docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/step-final-project-prod:${DOCKER_TAG}" -f app/Dockerfile app/
 
-      # Крок 5: Завантаження Docker-образу
+      # Завантаження Docker-образу
       - name: Push Docker Image
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project-prod:${{ env.DOCKER_TAG }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/step-final-project-prod:${DOCKER_TAG}
+
+      # Лінтинг DEV та PROD YAML
+      - name: Lint Kubernetes YAML
+        run: |
+          yamllint -c .yamllint app/k8s/dev/deployment.yaml
+          yamllint -c .yamllint app/k8s/prod/deployment.yaml
 
       # Крок 6: Створення GitHub-релізу
       - name: Create GitHub Release

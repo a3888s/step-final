@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,8 +13,7 @@ spec:
         app: python-backend           # Мітка для подів
     spec:
       containers:
-        - name: python-backend        # Назва контейнера
-          image: >
-            a3888s/step-final-project:${DOCKER_TAG}  # Образ контейнера із тегом версії
+        - name: python-backend
+          image: a3888s/step-final-project-prod:v0.0.6
           ports:
             - containerPort: 8080     # Відкритий порт контейнера

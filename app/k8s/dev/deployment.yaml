@@ -13,7 +13,7 @@ spec:
         app: python-backend           # Мітка для подів
     spec:
       containers:
-        - name: python-backend        # Назва контейнера
-          image: a3888s/step-final-project:${DOCKER_TAG}  # Образ контейнера із тегом версії
+        - name: python-backend
+          image: a3888s/step-final-project:{{ .Values.image.tag }}
           ports:
             - containerPort: 8080     # Відкритий порт контейнера

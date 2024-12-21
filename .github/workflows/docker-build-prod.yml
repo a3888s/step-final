@@ -1,15 +1,17 @@
 name: Release and Push Docker Image
 
 on:
-  push:
+  pull_request:
+    types: [closed]                  # Запускається, коли PR закрито (merged)
     branches:
-      - main
+      - main                         # Тільки для PR, об’єднаних у main
 
 jobs:
   release:
+    if: github.event.pull_request.merged == true  # Виконується тільки якщо PR був merged
     runs-on: ubuntu-latest
     env:
-      DOCKER_TAG: v0.0.1  # Задаємо тег вручну або через CI/CD
+      DOCKER_TAG: v0.0.1 
 
     steps:
       # Крок 1: Клонування репозиторію

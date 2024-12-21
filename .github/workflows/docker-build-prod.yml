@@ -11,7 +11,7 @@ jobs:
     if: github.event.pull_request.merged == true  # Виконується тільки якщо PR був merged
     runs-on: ubuntu-latest
     env:
-      DOCKER_TAG: v0.0.1 
+      DOCKER_TAG: v0.0.1
 
     steps:
       # Крок 1: Клонування репозиторію

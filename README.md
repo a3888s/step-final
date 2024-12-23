@@ -50,6 +50,10 @@
 
 ---
 
+## Відео демонстрація виконання
+
+[![Відео](screens/1.png)](https://youtu.be/M9Q5dQfWt-Q?si=RGDpFitf9EVc4h8V)
+
 ## ⚙️ Налаштування AWS CLI
 
 1. Встановіть AWS CLI.
@@ -71,7 +75,7 @@
    ```sh
    terraform apply -var="iam_profile=danit"
    ```
-
+   ![Розгортання інфраструктури](screens/2.png)
 ---
 
 ## 🐳 Конфігурація Kubernetes EKS
@@ -89,7 +93,7 @@
    ```sh
    kubectl -n argocd exec -it deployment/argocd-server -- argocd admin initial-password --password <new-password>
    ```
-
+   ![ArgoCD](screens/3.png)
 ---
 
 ## 💻 Розгортання середовища розробки
@@ -123,7 +127,7 @@
    ```sh
    argocd app get step-final-app-prod
    ```
-
+   ![Deploy](screens/4.png)
 ---
 
 ## 🌿 Управління гілками
@@ -143,7 +147,7 @@
    git checkout main
    git merge dev
    ```
-
+   ![CI/CD](screens/5.png)
 ---
 
 ## 🏁 Висновок

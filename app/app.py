@@ -28,7 +28,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
                     </style>
                 </head>
                 <body>
-                    <h1>StepFinalProject v1.0.1</h1>
+                    <h1>StepFinalProject v1.0.2</h1>
                 </body>
                 </html>
             """
@@ -41,6 +41,6 @@ class SimpleHandler(BaseHTTPRequestHandler):
 # Основна частина програми
 if __name__ == "__main__":
     server = HTTPServer(("0.0.0.0", 8080), SimpleHandler)  # Ініціалізація сервера на порту 8080
-    version = "v1.0.1"
+    version = "v1.0.2"
     print(f"StepFinalProject {version}")  # Виведення інформації про запуск у консоль
     server.serve_forever()  # Запуск сервера для обробки запитів

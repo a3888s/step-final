@@ -14,7 +14,7 @@ resource "aws_eks_node_group" "danit-amd" {
 
   # Налаштування вузлів
   ami_type       = "AL2_x86_64"                     # Тип AMI для вузлів (Amazon Linux 2 для x86)
-  instance_types = ["t3.medium"]                    # Тип інстанса для вузлів
+  instance_types = ["t3.large"]                    # Тип інстанса для вузлів
 
   # Додавання міток для вузлів
   labels = {
